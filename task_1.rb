@@ -1,9 +1,11 @@
+# frozen_string_literal: true
 
+# Create brick
 class BricksFactory
-  attr_accessor :how_briсk
+  attr_accessor :how_brick
 
-  def initialize(how_briсk)
-    @how_brick = how_briсk
+  def initialize(how_brick)
+    @how_brick = how_brick
   end
 
   def normal_brick
@@ -15,7 +17,7 @@ class BricksFactory
   end
 
   def groups_brick
-    @normal_brick.group_by{|h| h[:color]}.values
+    @normal_brick.group_by { |h| h[:color] }.values
   end
 
   def serial_number
@@ -28,14 +30,12 @@ class BricksFactory
   def all_brick
     @some_brick = []
     ser_number = 0
-    (1..@how_brick).to_a.each_with_index do |bricks, index|
-      @some_brick << {
-        color: "#{random_color}"
-      }
+    (1..@how_brick).to_a.each_with_index do |_, index|
+      @some_brick << { color: random_color.to_s }
       if rand(100) < 20
         @some_brick[index][:status] = 'brick broken'
       else
-        @some_brick[index][:serial_number] = "#{ser_number+=1}"
+        @some_brick[index][:serial_number] = ser_number += 1
         @some_brick[index][:status] = 'brick normal'
       end
     end
@@ -48,11 +48,8 @@ class BricksFactory
 end
 
 q1 = BricksFactory.new(15)
-p q1.normal_brick
-p '-------------------------------------------------'
-p q1.groups_brick
-p '-------------------------------------------------'
-p q1.serial_number
-
-
-
+q1.normal_brick
+# p '-------------------------------------------------'
+q1.groups_brick
+# p '-------------------------------------------------'
+q1.serial_number
